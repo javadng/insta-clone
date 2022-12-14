@@ -49,20 +49,19 @@ const AddNewPost = props => {
       return;
     }
 
-    await sendRequest("/api/upload-post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data: postData }),
-    });
+    try {
+      await sendRequest("/api/upload-post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: postData }),
+      });
 
-    if (httpState.status === "SUCCESS") {
       props.setModalState(false);
       Router.replace("/");
-    }
-    if (httpState.status === "ERROR") {
-      setErrorText(httpState.message);
+    } catch (error) {
+      setErrorText(error.message || httpState.message);
     }
   };
 

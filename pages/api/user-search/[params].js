@@ -1,8 +1,17 @@
+import { unstable_getServerSession } from "next-auth";
 import { connectToDatabase } from "../../../lib/db";
+import { authOptions } from "../auth/[...nextauth]";
 
 async function handler(req, res) {
   if (req.method === "GET") {
     const param = req.query.params;
+
+    const userSession = await unstable_getServerSession(req, res, authOptions);
+
+    if (userSession.user.name.includes(param)) {
+      res.status(404).json({ message: "Nothing Found.", data: null });
+      return;
+    }
 
     let client, collection;
 
@@ -18,6 +27,7 @@ async function handler(req, res) {
       client?.close();
       return;
     }
+
     const regExpertion = new RegExp(param);
 
     const findedCursor = await collection.find({

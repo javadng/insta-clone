@@ -28,7 +28,14 @@ const SearchPage = props => {
     <div className="p-4">
       <Search getSearchValue={searchHandler} />
       <h2 className="my-3 text-center">Search result :</h2>
-      <ul className="relative">{content}</ul>
+      <ul className="relative">
+        {content}
+        {httpState.status === "ERROR" && (
+          <p className="text-red-500 my-6 text-2xl text-center">
+            {httpState.message}
+          </p>
+        )}
+      </ul>
       <Link href="/" className="text-center">
         Return Home
       </Link>

@@ -9,7 +9,8 @@ async function handler(req, res) {
   const { usernameSession, usernameToFollow } = req.body.data;
 
   if (usernameSession === usernameToFollow) {
-    res.status(500).json({ message: "You can't follow YourSelf.😂😂" });
+    res.status(201).json({ message: "You can't follow YourSelf.😂😂" });
+    return;
   }
 
   const sessionUserLower = usernameSession.toLowerCase();

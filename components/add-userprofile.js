@@ -42,7 +42,6 @@ const AddUserProfile = props => {
     });
   };
 
-  console.log(httpState);
   return (
     <div>
       <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
