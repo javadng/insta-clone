@@ -1,0 +1,7 @@
+.img-holder {
+  position: relative;
+}
+.img-item img {
+  width: 100% !important;
+  height: 100% !important;
+}
