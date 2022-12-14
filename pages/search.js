@@ -29,6 +29,7 @@ const SearchPage = props => {
       <Search getSearchValue={searchHandler} />
       <h2 className="my-3 text-center">Search result :</h2>
       <ul className="relative">{content}</ul>
+      <Link href="/" />
     </div>
   );
 };

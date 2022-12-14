@@ -49,8 +49,6 @@ const AddNewPost = props => {
       return;
     }
 
-    setLoadingState(true);
-
     await sendRequest("/api/upload-post", {
       method: "POST",
       headers: {
