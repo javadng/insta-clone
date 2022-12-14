@@ -31,12 +31,13 @@ async function handler(req, res) {
       );
 
       res.status(200).json({ message: "Success", data: result });
+      client.close();
+      return;
     } catch (error) {
       res.status(422).json({ message: error.message });
+      clientGlobal.close();
+      return;
     }
-
-    clientGlobal.close();
-    return;
   } else {
     res.status(500).json({ message: "Wrong request" });
     return;

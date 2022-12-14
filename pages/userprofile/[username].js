@@ -22,8 +22,6 @@ const UserProfileFindPage = props => {
     sendRequest(`/api/user/user-account/${props.username}`);
   }, [sendRequest]);
 
-  console.log(httpState);
-
   if (httpState.status === "SUCCESS" && httpState.data) {
     userProfileContent = (
       <UserProfileSearch

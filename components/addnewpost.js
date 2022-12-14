@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
+import useHttp from "../hooks/http-hook";
 
 const AddNewPost = props => {
+  const { httpState, sendRequest } = useHttp();
   const [userImage, setUserImage] = useState("");
   const [userDescription, setUserDescription] = useState("");
 
   const [errorText, setErrorText] = useState("");
-  const [loadingState, setLoadingState] = useState(false);
 
   const Router = useRouter();
 
@@ -43,34 +44,28 @@ const AddNewPost = props => {
       date: currentDate,
     };
 
-    // props.getData(data);
-
     if (!postData.image) {
       setErrorText("ERROR! image format is wrong");
       return;
     }
 
-    try {
-      setLoadingState(true);
+    setLoadingState(true);
 
-      const res = await fetch("/api/upload-post", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ data: postData }),
-      });
+    await sendRequest("/api/upload-post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: postData }),
+    });
 
-      await res.json();
+    if (httpState.status === "SUCCESS") {
       props.setModalState(false);
-
       Router.replace("/");
-    } catch (error) {
-      console.error(error);
-      setErrorText(error.message || "Somthing went wrong!");
     }
-
-    setLoadingState(false);
+    if (httpState.status === "ERROR") {
+      setErrorText(httpState.message);
+    }
   };
 
   return (
@@ -114,8 +109,7 @@ const AddNewPost = props => {
           onClick={onSubmitHandler}
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          {!loadingState && "Upload"}
-          {loadingState && "Sending..."}
+          {httpState.status === "LOADING" ? "Sending..." : "Upload"}
         </button>
         <button
           data-modal-toggle="defaultModal"

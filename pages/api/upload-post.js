@@ -5,15 +5,15 @@ import { authOptions } from "./auth/[...nextauth]";
 
 async function handler(req, res) {
   if (req.method !== "POST") {
-    res.status(200).json({ message: "Format not correct!" });
+    res.status(500).json({ message: "Format not correct!" });
     return;
   }
 
   const { description, image, username, date } = req.body.data;
 
-  const userValidation = validateUserSession(req, res, username);
+  const userSession = await unstable_getServerSession(req, res, authOptions);
 
-  if (!userValidation) {
+  if (userSession.user.name !== username) {
     res.status(500).json({ message: "upload just for your account is valid." });
     return;
   }
