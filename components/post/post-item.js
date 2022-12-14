@@ -4,14 +4,11 @@ import { FaRegComment } from "react-icons/fa";
 import PostDropDown from "./post-dropdown";
 import useHttp from "../../hooks/http-hook";
 import LoadingSpinner from "../../components/ui/loading-spinner";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 const PostItem = props => {
   const postImageSrc = `data:image/png;base64, ${props.postImage}`;
   const { data } = useSession();
   const { httpState, sendRequest } = useHttp();
-  const Router = useRouter();
-
 
   const userProfileImg = props.profileImage
     ? `data:image/png;base64, ${props.profileImage}`
@@ -26,7 +23,7 @@ const PostItem = props => {
       };
       await sendRequest("/api/delete-post/", httpOptions);
 
-      Router.reload();
+      props.isChanged(true);
     } else {
       console.log("username not match");
     }

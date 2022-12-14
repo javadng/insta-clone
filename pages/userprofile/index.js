@@ -14,6 +14,7 @@ import { authOptions } from "../api/auth/[...nextauth]";
 const UserProfilePage = props => {
   const { httpState, sendRequest } = useHttp();
   const [modalState, setModalState] = useState(false);
+  const [isChanged, setIsChange] = useState(false);
 
   const { sessionData } = props;
 
@@ -26,6 +27,13 @@ const UserProfilePage = props => {
 
     sendRequest(`/api/user/user-account/${sessionData.user.name}`);
   }, [sendRequest]);
+
+  useEffect(() => {
+    if (isChanged) {
+      sendRequest(`/api/user/user-account/${sessionData.user.name}`);
+      setIsChange(false);
+    }
+  }, [isChanged]);
 
   if (httpState.status === "LOADING" || !httpState.status) {
     return <LoadingSpinner />;
@@ -44,6 +52,7 @@ const UserProfilePage = props => {
           <AddUserProfile
             setModalState={setModalState}
             username={sessionData.user.name}
+            isChangedFn={setIsChange}
           />
         </Modal>
       )}
@@ -88,7 +97,7 @@ const UserProfilePage = props => {
 
         <PostsList posts={posts} profile={userProfile} />
       </div>
-      <MobileNavigation userProfile={userProfile} />
+      <MobileNavigation isChanged={setIsChange} userProfile={userProfile} />
     </Fragment>
   );
 };

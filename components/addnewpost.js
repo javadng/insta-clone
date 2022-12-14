@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import useHttp from "../hooks/http-hook";
 
@@ -8,8 +7,6 @@ const AddNewPost = props => {
   const [userDescription, setUserDescription] = useState("");
 
   const [errorText, setErrorText] = useState("");
-
-  const Router = useRouter();
 
   const getUserImage = e => {
     const reader = new FileReader();
@@ -59,7 +56,7 @@ const AddNewPost = props => {
       });
 
       props.setModalState(false);
-      Router.replace("/");
+      props.isChanged(true);
     } catch (error) {
       setErrorText(error.message || httpState.message);
     }

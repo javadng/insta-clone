@@ -15,6 +15,7 @@ const PostsList = props => {
 
   const postsItems = sortedPosts.map(item => (
     <PostItem
+      isChanged={props.isChanged}
       id={item.id}
       key={item.id}
       postImage={item.image}

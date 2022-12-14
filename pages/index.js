@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import Header from "../components/header";
 import PostsList from "../components/post/posts-list";
@@ -12,6 +12,7 @@ import MobileNavigation from "../components/mobile-nav";
 
 const HomePage = props => {
   const { httpState, sendRequest } = useHttp();
+  const [isChanged, setIsChanged] = useState(false);
 
   const { user } = props.sessionData;
 
@@ -21,13 +22,20 @@ const HomePage = props => {
     sendRequest(`/api/user-posts/${user.name}`);
   }, [sendRequest]);
 
+  useEffect(() => {
+    if (isChanged) {
+      sendRequest(`/api/user-posts/${user.name}`);
+      setIsChanged(false);
+    }
+  }, [isChanged]);
+
   const userLogoutHandler = () => {
     signOut();
   };
 
   return (
     <Fragment>
-      <Header userSession={user} />
+      <Header userSession={user} profile={httpState.data?.profile} />
       <section className="grid md:grid-cols-[minmax(28rem,42rem),minmax(15rem,_1fr)] max-w-4xl m-auto  mt-2">
         <div className="posts p-1">
           <StoryList />
@@ -35,6 +43,7 @@ const HomePage = props => {
             {httpState.status === "LOADING" && <LoadingSpinner />}
             {httpState.status === "SUCCESS" && (
               <PostsList
+                isChanged={setIsChanged}
                 posts={httpState.data.userPosts}
                 profile={httpState.data.profile}
               />
@@ -51,7 +60,10 @@ const HomePage = props => {
           )}
         </div>
       </section>
-      <MobileNavigation userProfile={httpState.data?.profile} />
+      <MobileNavigation
+        isChanged={setIsChanged}
+        userProfile={httpState.data?.profile}
+      />
     </Fragment>
   );
 };

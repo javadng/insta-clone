@@ -14,10 +14,6 @@ const MobileNavigation = props => {
 
   const { data } = useSession();
 
-  // if (!data) {
-  //   return <LoadingSpinner />;
-  // }
-
   useEffect(() => {
     setIsBrowser(true);
   }, [setIsBrowser]);
@@ -35,6 +31,7 @@ const MobileNavigation = props => {
             <AddNewPost
               setModalState={setModalState}
               username={data.user.name}
+              isChanged={props.isChanged}
             />
           </Modal>
         )}

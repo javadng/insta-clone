@@ -1,6 +1,6 @@
-import Search from "../components/search";
-import useHttp from "../hooks/http-hook";
-import LoadingSpinner from "../components/ui/loading-spinner";
+import Search from "../../components/search";
+import useHttp from "../../hooks/http-hook";
+import LoadingSpinner from "../../components/ui/loading-spinner";
 import Link from "next/link";
 
 const SearchPage = props => {
@@ -12,6 +12,7 @@ const SearchPage = props => {
 
   let content = "";
 
+ 
   if (httpState.status === "SUCCESS") {
     content = httpState.data.map(user => (
       <li key={user._id} className="p-2 font-bold capitalize cursor-pointer">
