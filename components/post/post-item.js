@@ -1,5 +1,5 @@
 import { BsBookmark } from "react-icons/bs";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import PostDropDown from "./post-dropdown";
 import useHttp from "../../hooks/http-hook";
@@ -28,6 +28,31 @@ const PostItem = props => {
       console.log("username not match");
     }
   };
+
+  const likeHandler = async () => {
+    const httpOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        postId: props.id,
+        usernamePost: props.userName,
+        usernameLiker: data.user.name,
+      }),
+    };
+
+    await sendRequest("/api/like", httpOptions);
+  };
+
+  let isLiked = props.likes.some(user => user.username === data.user.name);
+  let likesNumber = props.likes.length;
+
+  if (httpState.data && httpState.data.likes) {
+    isLiked = httpState.data.likes.some(
+      user => user.username === data.user.name
+    );
+
+    likesNumber = httpState.data.likes.length;
+  }
 
   return (
     <div className="relative">
@@ -67,10 +92,26 @@ const PostItem = props => {
           />
         </figure>
         <div className="text-sm sm:text-3xl flex items-center p-3">
-          <AiOutlineHeart className="text-4xl cursor-pointer" />
+          {!isLiked && (
+            <AiOutlineHeart
+              onClick={likeHandler}
+              className="text-4xl cursor-pointer"
+            />
+          )}
+          {isLiked && (
+            <AiTwotoneHeart
+              onClick={likeHandler}
+              className="text-4xl text-red-600 cursor-pointer"
+            />
+          )}
           <FaRegComment className="ml-3 text-3xl cursor-pointer" />
           <BsBookmark className="ml-auto text-3xl cursor-pointer" />
         </div>
+        {likesNumber !== 0 && (
+          <p className="px-4 mr-auto text-left text-xl font-bold self-start">
+            {likesNumber} likes
+          </p>
+        )}
         <div className="description p-4">{props.description}</div>
         <div className="comments">
           <span className="ml-4 block mb-1 text-sm cursor-pointer text-gray-400">

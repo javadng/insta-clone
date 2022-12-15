@@ -15,6 +15,8 @@ const PostsList = props => {
 
   const postsItems = sortedPosts.map(item => (
     <PostItem
+      likes={item.likes}
+      comments={item.comments}
       isChanged={props.isChanged}
       id={item.id}
       key={item.id}

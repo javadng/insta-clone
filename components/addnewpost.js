@@ -12,6 +12,12 @@ const AddNewPost = props => {
     const reader = new FileReader();
 
     if (e.target.files[0]) {
+      if (e.target.files[0].size > 1000000) {
+        setErrorText("Error! Image too large. Most be lower than 1Mb.");
+        return;
+      }
+      setErrorText("");
+
       reader.addEventListener("load", () => {
         //convert to base64 for sending to the database
         const base64String = reader.result

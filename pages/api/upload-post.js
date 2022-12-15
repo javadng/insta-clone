@@ -37,6 +37,8 @@ async function handler(req, res) {
       username,
       image,
       date,
+      likes: [],
+      comments: [],
     });
 
     const result = await collection.findOneAndUpdate(
