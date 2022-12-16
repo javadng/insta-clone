@@ -35,7 +35,7 @@ const MobileNavigation = props => {
             />
           </Modal>
         )}
-        <div className="md:hidden fixed w-[100vw] bottom-0 left-0 h-12 p-2 bg-white">
+        <div className="lg:hidden fixed w-[100vw] bottom-0 left-0 h-12 p-2 bg-white">
           <ul className="flex justify-around items-center text-3xl">
             <Link href="/">
               <li className={liClasses}>

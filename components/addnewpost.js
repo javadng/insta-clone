@@ -12,10 +12,11 @@ const AddNewPost = props => {
     const reader = new FileReader();
 
     if (e.target.files[0]) {
-      if (e.target.files[0].size > 1000000) {
+      if (e.target.files[0].size > 800000) {
         setErrorText("Error! Image too large. Most be lower than 1Mb.");
         return;
       }
+
       setErrorText("");
 
       reader.addEventListener("load", () => {

@@ -95,7 +95,11 @@ const UserProfilePage = props => {
           </button>
         </div>
 
-        <PostsList posts={posts} profile={userProfile} />
+        <PostsList
+          posts={posts}
+          isChanged={setIsChange}
+          profile={userProfile}
+        />
       </div>
       <MobileNavigation isChanged={setIsChange} userProfile={userProfile} />
     </Fragment>

@@ -1,16 +1,8 @@
-import { useState } from "react";
-
 const InputForm = props => {
-  const [inputValue, setInputValue] = useState("");
-
   if (!props.getInputValue) return;
 
   const onchangeHandler = e => {
-    setInputValue(e.target.value);
-  };
-
-  const onBlurHandler = e => {
-    props.getInputValue(inputValue);
+    props.getInputValue(e.target.value);
   };
 
   return (
@@ -21,7 +13,7 @@ const InputForm = props => {
         className={props.className}
         type={props.type}
         placeholder={props.placeholder}
-        onBlur={onBlurHandler}
+        value={props.inputValue}
         onChange={onchangeHandler}
       />
     </div>

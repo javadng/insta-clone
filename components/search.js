@@ -4,7 +4,6 @@ import InputForm from "./ui/input-form";
 
 const Search = props => {
   const [userSearchValue, setUserSearchValue] = useState("");
-
   const userSearchValueHandler = inputValue => {
     setUserSearchValue(inputValue);
   };
@@ -23,15 +22,15 @@ const Search = props => {
         <div className="flex items-center">
           <InputForm
             getInputValue={userSearchValueHandler}
+            inputValue={userSearchValue}
             type="text"
             placeholder="Search"
             className="w-full block px-3 rounded-md border-gray-200 focus:border-blue-100 transition"
           />
         </div>
-        <button className="absolute z-10 right-2 top-5">
+        <button type="submit" className="absolute z-10 right-2 top-5">
           <BsSearch className="" />
         </button>
-        <input type="submit" value="" />
       </form>
     </div>
   );

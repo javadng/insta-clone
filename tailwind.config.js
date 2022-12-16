@@ -10,6 +10,9 @@ module.exports = {
       boxShadow: {
         around: "0 0 0.6rem  rgba(0, 0, 0, 0.1)",
       },
+      gridTemplateColumns: {
+        posts: "repeat(auto-fit, minmax(20rem, 1fr))",
+      },
     },
   },
   plugins: [require("@tailwindcss/forms"), require("flowbite/plugin")],
