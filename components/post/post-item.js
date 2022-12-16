@@ -7,12 +7,9 @@ import LoadingSpinner from "../../components/ui/loading-spinner";
 import { useSession } from "next-auth/react";
 const PostItem = props => {
   const postImageSrc = `data:image/png;base64, ${props.postImage}`;
+
   const { data } = useSession();
   const { httpState, sendRequest } = useHttp();
-
-  const userProfileImg = props.profileImage
-    ? `data:image/png;base64, ${props.profileImage}`
-    : "/images/story-Image/empty-profile.png";
 
   const deleltePostHandler = async () => {
     if (data.user.name === props.userName) {
@@ -66,7 +63,7 @@ const PostItem = props => {
           <figure className="w-14 h-14 overflow-hidden rounded-full cursor-pointer bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px]">
             <img
               alt="user-profile"
-              src={userProfileImg}
+              src={props.profileImage}
               className="rounded-full"
             />
           </figure>
@@ -117,7 +114,7 @@ const PostItem = props => {
           <span className="ml-4 block mb-1 text-sm cursor-pointer text-gray-400">
             Add new comment ...
           </span>
-          <ul className="comment-list p-4">
+          <ul className="comment-list p-4 text-sm md:text-lg">
             <li className="flex items-center">
               <figure className="w-4 h-4 overflow-hidden rounded-full">
                 <img src={props.profileImage} alt="" />

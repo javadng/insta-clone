@@ -11,6 +11,10 @@ const PostsList = props => {
 
   const { posts, profile } = props;
 
+  const base64Profile = profile
+    ? `data:image/png;base64, ${profile}`
+    : "/images/story-Image/empty-profile.png";
+
   const sortedPosts = posts.sort((a, b) => (a.date > b.date ? -1 : 1));
 
   const postsItems = sortedPosts.map(item => (
@@ -21,7 +25,7 @@ const PostsList = props => {
       id={item.id}
       key={item.id}
       postImage={item.image}
-      profileImage={profile}
+      profileImage={base64Profile}
       userName={item.username}
       description={item.description}
     />
