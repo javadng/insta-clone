@@ -16,7 +16,6 @@ const PostsList = props => {
     : "/images/story-Image/empty-profile.png";
 
   const sortedPosts = posts.sort((a, b) => (a.date > b.date ? -1 : 1));
-
   const postsItems = sortedPosts.map(item => (
     <PostItem
       likes={item.likes}

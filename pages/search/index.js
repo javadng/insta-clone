@@ -2,6 +2,8 @@ import Search from "../../components/search";
 import useHttp from "../../hooks/http-hook";
 import LoadingSpinner from "../../components/ui/loading-spinner";
 import Link from "next/link";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 const SearchPage = props => {
   const { httpState, sendRequest } = useHttp();
@@ -60,3 +62,26 @@ const SearchPage = props => {
 };
 
 export default SearchPage;
+
+export async function getServerSideProps(context) {
+  const sessionData = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+
+  if (!sessionData) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      sessionData,
+    },
+  };
+}

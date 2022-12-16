@@ -5,9 +5,10 @@ import PostDropDown from "./post-dropdown";
 import useHttp from "../../hooks/http-hook";
 import LoadingSpinner from "../../components/ui/loading-spinner";
 import { useSession } from "next-auth/react";
+import Comments from "./comment";
+
 const PostItem = props => {
   const postImageSrc = `data:image/png;base64, ${props.postImage}`;
-
   const { data } = useSession();
   const { httpState, sendRequest } = useHttp();
 
@@ -42,6 +43,11 @@ const PostItem = props => {
 
   let isLiked = props.likes.some(user => user.username === data.user.name);
   let likesNumber = props.likes.length;
+
+  const sortedComments = props.comments.sort((a, b) =>
+    a.date > b.date ? -1 : 1
+  );
+  let commentsList = sortedComments.slice(0, 5);
 
   if (httpState.data && httpState.data.likes) {
     isLiked = httpState.data.likes.some(
@@ -108,39 +114,12 @@ const PostItem = props => {
       )}
       <div className="description p-4">{props.description}</div>
       <div className="comments">
-        <span className="ml-4 block mb-1 text-sm cursor-pointer text-gray-400">
-          Add new comment ...
-        </span>
-        <ul className="comment-list p-4 text-sm md:text-lg">
-          <li className="flex items-center">
-            <figure className="w-4 h-4 overflow-hidden rounded-full">
-              <img src={props.profileImage} alt="" />
-            </figure>
-            <span className="ml-1 text-gray-600">username</span>
-            <span className="ml-3 text-gray-500">comment text</span>
-          </li>
-          <li className="flex items-center">
-            <figure className="w-4 h-4 overflow-hidden rounded-full">
-              <img src={props.profileImage} alt="" />
-            </figure>
-            <span className="ml-1 text-gray-600">username</span>
-            <span className="ml-3 text-gray-500">comment text</span>
-          </li>
-          <li className="flex items-center">
-            <figure className="w-4 h-4 overflow-hidden rounded-full">
-              <img src={props.profileImage} alt="" />
-            </figure>
-            <span className="ml-1 text-gray-600">username</span>
-            <span className="ml-3 text-gray-500">comment text</span>
-          </li>
-          <li className="flex items-center">
-            <figure className="w-4 h-4 overflow-hidden rounded-full">
-              <img src={props.profileImage} alt="" />
-            </figure>
-            <span className="ml-1 text-gray-600">username</span>
-            <span className="ml-3 text-gray-500">comment text</span>
-          </li>
-        </ul>
+        <Comments
+          postId={props.id}
+          usernameSession={data.user.name}
+          usernamePost={props.userName}
+          commentList={commentsList}
+        />
       </div>
     </li>
   );

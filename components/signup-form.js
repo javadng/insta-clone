@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useHttp from "../hooks/http-hook";
 import InputForm from "./ui/input-form";
 import LoadingButton from "./ui/loading-btn";
 
@@ -47,8 +48,6 @@ const SignUpForm = props => {
     }
 
     try {
-      setLoadingState(true);
-
       const res = await fetch("api/auth/signup", {
         headers: { "Content-Type": "application/json" },
         method: "POST",
@@ -78,24 +77,28 @@ const SignUpForm = props => {
   return (
     <form onSubmit={signupHandler}>
       <InputForm
+        inputValue={email}
         getInputValue={emailValueHandler}
         type="text"
         className="bg-gray-50 border-gray-100 focus:border-gray-100 transition-all block py-1.5 px-2 my-3 m-auto text-sm w-full rounded-sm"
         placeholder="Your Email"
       />
       <InputForm
+        inputValue={fullName}
         getInputValue={fullNameValueHandler}
         type="text"
         className="bg-gray-50 border-gray-100 focus:border-gray-100 transition-all block py-1.5 px-2 my-3 m-auto text-sm w-full rounded-sm"
         placeholder="Full name"
       />
       <InputForm
+        inputValue={userName}
         getInputValue={userNameValueHandler}
         type="text"
         className="bg-gray-50 border-gray-100 focus:border-gray-100 transition-all block py-1.5 px-2 my-3 m-auto text-sm w-full rounded-sm"
         placeholder="Username"
       />
       <InputForm
+        inputValue={password}
         getInputValue={passwordValueHandler}
         type="password"
         className="bg-gray-50 border-gray-100 focus:border-gray-100 transition-all block py-1.5 px-2 my-3 m-auto text-sm w-full rounded-sm"

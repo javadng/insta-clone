@@ -66,12 +66,14 @@ const LoginForm = props => {
   return (
     <form onSubmit={onsubmitHandler} autoComplete="off">
       <InputForm
+        inputValue={userName}
         getInputValue={usernameValueHandler}
         type="text"
         className="bg-gray-50 border-gray-100 focus:border-gray-100 transition-all block py-1.5 px-2 my-3 m-auto text-sm w-full rounded-sm"
         placeholder="Phone number, username, or email"
       />
       <InputForm
+        inputValue={password}
         getInputValue={passwordValueHandler}
         type="password"
         className="bg-gray-50 border-gray-100 focus:border-gray-100 transition-all block py-1.5 px-2 my-3 m-auto text-sm w-full rounded-sm"

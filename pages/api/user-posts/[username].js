@@ -10,6 +10,7 @@ async function handler(req, res) {
     }
 
     let clientGlobal;
+
     try {
       let { user, client } = await findUser(username, "users-account");
       const userPosts = user.posts;
