@@ -48,6 +48,8 @@ const SignUpForm = props => {
     }
 
     try {
+      setLoadingState(true);
+      
       const res = await fetch("api/auth/signup", {
         headers: { "Content-Type": "application/json" },
         method: "POST",
