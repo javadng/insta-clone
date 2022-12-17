@@ -22,9 +22,14 @@ img {
   height: 100%;
 }
 
-input.comment:focus ~ span.title {
+/* input.comment:focus ~ span.title {
   transform: translateY(-1rem);
   visibility: hidden;
   display: block;
   transition: all 0.4s;
+} */
+
+.input:focus ~ .label,  /* Input has focus */
+.input:not(:placeholder-shown) ~ .label  /* Input has a value */  {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
 }

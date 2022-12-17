@@ -6,6 +6,7 @@ import useHttp from "../../hooks/http-hook";
 import LoadingSpinner from "../../components/ui/loading-spinner";
 import { useSession } from "next-auth/react";
 import Comments from "./comment";
+import Like from "./like";
 
 const PostItem = props => {
   const postImageSrc = `data:image/png;base64, ${props.postImage}`;
@@ -91,27 +92,12 @@ const PostItem = props => {
           }`}
         />
       </figure>
-      <div className="text-2xl sm:text-3xl flex items-center p-3">
-        {!isLiked && (
-          <AiOutlineHeart
-            onClick={likeHandler}
-            className="text-3xl sm:text-4xl cursor-pointer"
-          />
-        )}
-        {isLiked && (
-          <AiTwotoneHeart
-            onClick={likeHandler}
-            className=" text-red-600 text-3xl sm:text-4xl cursor-pointer"
-          />
-        )}
-        <FaRegComment className="ml-3 cursor-pointer" />
-        <BsBookmark className="ml-auto cursor-pointer" />
-      </div>
-      {likesNumber !== 0 && (
-        <p className="px-4 mr-auto text-left text-xl font-bold self-start">
-          {likesNumber} likes
-        </p>
-      )}
+      <Like
+        usernameSession={data.user.name}
+        usernamePost={props.userName}
+        postId={props.id}
+        likes={props.likes}
+      />
       <div className="description p-4">{props.description}</div>
       <div className="comments">
         <Comments
