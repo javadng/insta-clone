@@ -31,24 +31,16 @@ const Comments = props => {
 
   let allCommetns = "";
 
-  if (props.commentList) {
-    const sortedComments = props.commentList.sort((a, b) =>
-      a.date > b.date ? -1 : 1
-    );
-
+  if (!httpState.data && props.commentList) {
     allCommetns = props.commentList.map(comment => (
       <li className="flex items-center" key={comment.date}>
-        <span className="ml-1 text-gray-600">{comment.username}</span>
+        <span className="ml-1 text-gray-600 font-bold">{comment.username}</span>
         <span className="ml-3 text-gray-500">{comment.commentText}</span>
       </li>
     ));
   }
 
   if (httpState.data && httpState.data.type === "comment") {
-    const sortedComments = httpState.data.comments.sort((a, b) =>
-      a.date > b.date ? -1 : 1
-    );
-
     allCommetns = httpState.data.comments.map(comment => (
       <li className="flex items-center" key={comment.date}>
         <span className="ml-1 text-gray-600 font-bold">{comment.username}</span>
