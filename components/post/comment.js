@@ -87,7 +87,7 @@ const Comments = props => {
         </button>
       </form>
       {httpState.status === "LOADING" && (
-        <AiOutlineLoading className="animate-spin text-lg text-blue-400" />
+        <AiOutlineLoading className="animate-spin text-lg mx-auto text-blue-400" />
       )}
 
       {httpState.status !== "LOADING" && allCommetns}
