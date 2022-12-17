@@ -18,8 +18,13 @@ const commentGenerator = commentList => {
     return (
       <li className="flex items-center" key={comment.date}>
         <span className="ml-1 text-gray-600 font-bold">{comment.username}</span>
-        :<span className="ml-3 text-gray-500">{comment.commentText}</span>
-        <span className="ml-auto text-xs md:text-sm">{formatedDate}</span>
+        :
+        <span className="ml-3 text-gray-500 truncate">
+          {comment.commentText}
+        </span>
+        <span className="ml-auto text-xs md:text-sm truncate">
+          {formatedDate}
+        </span>
       </li>
     );
   });

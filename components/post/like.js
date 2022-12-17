@@ -30,12 +30,12 @@ const Like = props => {
   );
   let likesNumber = props.likes.length;
 
-  if (httpState.data && httpState.data.likes) {
-    isLiked = httpState.data.likes.some(
+  if (httpState.data) {
+    isLiked = httpState.data.some(
       user => user.username === props.usernameSession
     );
 
-    likesNumber = httpState.data.likes.length;
+    likesNumber = httpState.data.length;
   }
 
   return (

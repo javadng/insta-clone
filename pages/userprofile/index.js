@@ -23,8 +23,6 @@ const UserProfilePage = props => {
   };
 
   useEffect(() => {
-    if (httpState.data) return;
-
     sendRequest(`/api/user/user-account/${sessionData.user.name}`);
   }, [sendRequest]);
 

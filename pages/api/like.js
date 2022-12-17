@@ -41,7 +41,7 @@ async function handler(req, res) {
       { username: usernamePost },
       { $set: { posts: user.posts } }
     );
-    res.status(200).json({ message: "done.", data: userPost });
+    res.status(200).json({ message: "done.", data: userPost.likes });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

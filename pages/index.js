@@ -17,8 +17,6 @@ const HomePage = props => {
   const { user } = props.sessionData;
 
   useEffect(() => {
-    if (httpState.data) return;
-
     sendRequest(`/api/user-posts/${user.name}`);
   }, [sendRequest]);
 
