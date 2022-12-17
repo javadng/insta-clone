@@ -28,35 +28,10 @@ const PostItem = props => {
     }
   };
 
-  const likeHandler = async () => {
-    const httpOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        postId: props.id,
-        usernamePost: props.userName,
-        usernameLiker: data.user.name,
-      }),
-    };
-
-    await sendRequest("/api/like", httpOptions);
-  };
-
-  let isLiked = props.likes.some(user => user.username === data.user.name);
-  let likesNumber = props.likes.length;
-
   const sortedComments = props.comments.sort((a, b) =>
     a.date > b.date ? -1 : 1
   );
   let commentsList = sortedComments.slice(0, 5);
-
-  if (httpState.data && httpState.data.likes) {
-    isLiked = httpState.data.likes.some(
-      user => user.username === data.user.name
-    );
-
-    likesNumber = httpState.data.likes.length;
-  }
 
   return (
     <li className="post-item border-b-2 py-1 bg-white overflow-hidden">

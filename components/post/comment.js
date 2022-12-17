@@ -72,9 +72,6 @@ const Comments = props => {
           value={userComment}
           placeholder="Add new comment"
         />
-        {/* <label htmlFor={props.postId} className="label">
-          Add new comment
-        </label> */}
         <button className="btn text-blue-500 text-xl absolute right-1 top-[11px]">
           {httpState.status !== "LOADING" && <BiSend />}
           {httpState.status === "LOADING" && (
@@ -84,7 +81,11 @@ const Comments = props => {
           )}
         </button>
       </form>
-      {allCommetns}
+      {httpState.status === "LOADING" && (
+        <AiOutlineLoading className="animate-spin text-lg text-blue-400" />
+      )}
+
+      {httpState.status !== "LOADING" && allCommetns}
     </ul>
   );
 };
