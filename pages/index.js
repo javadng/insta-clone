@@ -42,7 +42,7 @@ const HomePage = props => {
             {httpState.status === "SUCCESS" && (
               <PostsList
                 isChanged={setIsChanged}
-                dataSesstion={user}
+                dataSesstion={props.sessionData}
                 posts={httpState.data.userPosts}
                 profile={httpState.data.profile}
               />
