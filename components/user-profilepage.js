@@ -1,11 +1,9 @@
-import { useSession } from "next-auth/react";
 import { AiOutlineLoading } from "react-icons/ai";
 import useHttp from "../hooks/http-hook";
 import PostsList from "./post/posts-list";
 
 const UserProfileSearch = props => {
-  const { name, posts, profile } = props;
-  const { data } = useSession();
+  const { name, posts, profile, dataSesstion } = props;
 
   let followers = props.followers;
   let followings = props.followings;
@@ -18,7 +16,7 @@ const UserProfileSearch = props => {
 
   const sendFollowRequest = async () => {
     const dataToSend = {
-      usernameSession: data.user.name,
+      usernameSession: dataSesstion.name,
       usernameToFollow: props.username,
     };
 
@@ -38,7 +36,7 @@ const UserProfileSearch = props => {
 
   if (followers) {
     const isFollowing = followers.some(
-      user => user.username === data.user.name
+      user => user.username === dataSesstion.name
     );
 
     if (isFollowing) followBtnContent = "Unfollow";
@@ -83,7 +81,7 @@ const UserProfileSearch = props => {
         </button>
       </div>
 
-      <PostsList posts={posts} profile={profile} />
+      <PostsList dataSesstion={dataSesstion} posts={posts} profile={profile} />
     </div>
   );
 };

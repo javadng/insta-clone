@@ -1,8 +1,10 @@
+import { unstable_getServerSession } from "next-auth";
 import { useEffect } from "react";
 import MobileNavigation from "../../components/mobile-nav";
 import LoadingSpinner from "../../components/ui/loading-spinner";
 import UserProfileSearch from "../../components/user-profilepage";
 import useHttp from "../../hooks/http-hook";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 const UserProfileFindPage = props => {
   const { sendRequest, httpState } = useHttp();
@@ -12,13 +14,13 @@ const UserProfileFindPage = props => {
     sendRequest(`/api/user/user-account/${props.username}`);
   }, [sendRequest, props.username]);
 
-  console.log(httpState);
   if (httpState.status === "SUCCESS" && httpState.data) {
     userProfileContent = (
       <UserProfileSearch
         profile={httpState.data.userProfile}
         name={httpState.data.name}
         username={props.username}
+        dataSesstion={props.sessionData}
         posts={httpState.data.posts}
         followers={httpState.data.followers}
         followings={httpState.data.followings}
@@ -38,9 +40,25 @@ const UserProfileFindPage = props => {
 export async function getServerSideProps(context) {
   const { username } = context.query;
 
+  const sessionData = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+
+  if (!sessionData) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       username,
+      sessionData,
     },
   };
 }
