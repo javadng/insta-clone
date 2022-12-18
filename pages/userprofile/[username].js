@@ -10,7 +10,7 @@ const UserProfileFindPage = props => {
 
   useEffect(() => {
     sendRequest(`/api/user/user-account/${props.username}`);
-  }, [sendRequest]);
+  }, [sendRequest, props.username]);
 
   if (httpState.status === "SUCCESS" && httpState.data) {
     userProfileContent = (

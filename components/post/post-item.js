@@ -1,20 +1,19 @@
-import { BsBookmark } from "react-icons/bs";
-import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
-import { FaRegComment } from "react-icons/fa";
 import PostDropDown from "./post-dropdown";
 import useHttp from "../../hooks/http-hook";
 import LoadingSpinner from "../../components/ui/loading-spinner";
-import { useSession } from "next-auth/react";
 import Comments from "./comment";
 import Like from "./like";
+import Image from "next/image";
 
 const PostItem = props => {
+  const { dataSesstion } = props;
+
   const postImageSrc = `data:image/png;base64, ${props.postImage}`;
-  const { data } = useSession();
+
   const { httpState, sendRequest } = useHttp();
 
   const deleltePostHandler = async () => {
-    if (data.user.name === props.userName) {
+    if (dataSesstion.name === props.userName) {
       const httpOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -42,7 +41,10 @@ const PostItem = props => {
       )}
       <div className="user-profile p-1  flex items-center ">
         <figure className="w-12 h-12 overflow-hidden rounded-full cursor-pointer bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px]">
-          <img
+          <Image
+            layout="responsive"
+            width={100}
+            height={100}
             alt="user-profile"
             src={props.profileImage}
             className="rounded-full"
@@ -50,7 +52,7 @@ const PostItem = props => {
         </figure>
         <span className="font-bold ml-2 cursor-pointer">{props.userName}</span>
         <span className="ml-auto cursor-pointer">
-          {data.user.name === props.userName && (
+          {dataSesstion.name === props.userName && (
             <PostDropDown
               loadingState={httpState.status}
               onDeleltePost={deleltePostHandler}
@@ -59,7 +61,10 @@ const PostItem = props => {
         </span>
       </div>
       <figure className="w-full relative">
-        <img
+        <Image
+          layout="responsive"
+          width={100}
+          height={100}
           src={postImageSrc}
           alt="user-post"
           className={`object-cover w-full h-full ${
@@ -68,7 +73,7 @@ const PostItem = props => {
         />
       </figure>
       <Like
-        usernameSession={data.user.name}
+        usernameSession={dataSesstion.name}
         usernamePost={props.userName}
         postId={props.id}
         likes={props.likes}
@@ -77,7 +82,7 @@ const PostItem = props => {
       <div className="comments">
         <Comments
           postId={props.id}
-          usernameSession={data.user.name}
+          usernameSession={dataSesstion.name}
           usernamePost={props.userName}
           commentList={commentsList}
         />

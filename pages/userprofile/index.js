@@ -23,10 +23,8 @@ const UserProfilePage = props => {
   };
 
   useEffect(() => {
-    if (httpState.data) return;
-
     sendRequest(`/api/user/user-account/${sessionData.user.name}`);
-  }, [sendRequest]);
+  }, [sendRequest, sessionData]);
 
   useEffect(() => {
     if (isChanged) {
@@ -99,6 +97,7 @@ const UserProfilePage = props => {
           posts={posts}
           isChanged={setIsChange}
           profile={userProfile}
+          dataSesstion={sessionData}
         />
       </div>
       <MobileNavigation isChanged={setIsChange} userProfile={userProfile} />

@@ -17,10 +17,8 @@ const HomePage = props => {
   const { user } = props.sessionData;
 
   useEffect(() => {
-    if (httpState.data) return;
-
     sendRequest(`/api/user-posts/${user.name}`);
-  }, [sendRequest]);
+  }, [sendRequest, user]);
 
   useEffect(() => {
     if (isChanged) {
@@ -44,6 +42,7 @@ const HomePage = props => {
             {httpState.status === "SUCCESS" && (
               <PostsList
                 isChanged={setIsChanged}
+                dataSesstion={user}
                 posts={httpState.data.userPosts}
                 profile={httpState.data.profile}
               />
