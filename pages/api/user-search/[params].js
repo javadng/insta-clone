@@ -8,7 +8,7 @@ async function handler(req, res) {
 
     const userSession = await unstable_getServerSession(req, res, authOptions);
 
-    if (userSession.user.name.includes(param)) {
+    if (userSession.user.name === param) {
       res.status(404).json({ message: "Nothing Found.", data: null });
       return;
     }
@@ -36,7 +36,16 @@ async function handler(req, res) {
 
     let usersFinded = [];
 
-    await findedCursor.forEach(item => usersFinded.push(item));
+    await findedCursor.forEach(item => {
+      if (item.username !== userSession.user.name) {
+        usersFinded.push(item);
+      }
+    });
+
+    if (!usersFinded.length) {
+      res.status(404).json({ message: "Nothing Found.", data: null });
+      return;
+    }
 
     res.status(200).json({ data: usersFinded, message: "Success" });
     client.close();
