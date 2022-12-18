@@ -15,10 +15,9 @@ const DUMMY_STORY = [
 ];
 
 const StoryList = props => {
-  const [browerWidth, setBrowerWidth] = useState();
   const [isBrowser, setIsBrowser] = useState(false);
 
-  let visibleSlides = 5;
+  let visibleSlides = 7;
 
   useEffect(() => {
     setIsBrowser(true);
@@ -32,7 +31,9 @@ const StoryList = props => {
       x = win.innerWidth || docElem.clientWidth || body.clientWidth;
     // y = win.innerHeight || docElem.clientHeight || body.clientHeight;
 
-    visibleSlides = x / 80;
+    if (Math.floor(x / 80) < 8) {
+      visibleSlides = Math.floor(x / 80);
+    }
   }
 
   const stories = DUMMY_STORY.map((story, index) => (
