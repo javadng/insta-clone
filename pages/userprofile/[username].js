@@ -8,17 +8,7 @@ const UserProfileFindPage = props => {
   const { sendRequest, httpState } = useHttp();
   let userProfileContent = "";
 
-  const followHandler = async data => {
-    await sendRequest("/api/follow", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ data }),
-    });
-  };
-
   useEffect(() => {
-    if (httpState.data) return;
-
     sendRequest(`/api/user/user-account/${props.username}`);
   }, [sendRequest]);
 
@@ -31,7 +21,6 @@ const UserProfileFindPage = props => {
         posts={httpState.data.posts}
         followers={httpState.data.followers}
         followings={httpState.data.followings}
-        sendFollowRequest={followHandler}
       />
     );
   }

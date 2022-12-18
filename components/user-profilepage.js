@@ -1,9 +1,16 @@
 import { useSession } from "next-auth/react";
+import { AiOutlineLoading } from "react-icons/ai";
+import useHttp from "../hooks/http-hook";
 import PostsList from "./post/posts-list";
 
 const UserProfileSearch = props => {
-  const { name, posts, followers, followings, profile } = props;
+  const { name, posts, profile } = props;
   const { data } = useSession();
+
+  let followers = props.followers;
+  let followings = props.followings;
+
+  const { sendRequest, httpState } = useHttp();
 
   const userProfileImg = profile
     ? `data:image/png;base64, ${profile}`
@@ -15,16 +22,33 @@ const UserProfileSearch = props => {
       usernameToFollow: props.username,
     };
 
-    props.sendFollowRequest(dataToSend);
+    await sendRequest("/api/follow", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: dataToSend }),
+    });
   };
 
-  let followBtnContent = "Follow";
+  let followBtnContent;
+
+  if (httpState.status === "SUCCESS" && httpState.data) {
+    followers = httpState.data.followers;
+    followings = httpState.data.followings;
+  }
+
   if (followers) {
     const isFollowing = followers.some(
       user => user.username === data.user.name
     );
 
     if (isFollowing) followBtnContent = "Unfollow";
+    else followBtnContent = "Follow";
+  }
+
+  if (httpState.status === "LOADING") {
+    followBtnContent = (
+      <AiOutlineLoading className="animate-spin text-lg mx-auto text-blue-400" />
+    );
   }
 
   return (
