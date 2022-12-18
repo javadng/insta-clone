@@ -14,9 +14,10 @@ const UserProfileSearch = props => {
     ? `data:image/png;base64, ${profile}`
     : "/images/story-Image/empty-profile.png";
 
+
   const sendFollowRequest = async () => {
     const dataToSend = {
-      usernameSession: dataSesstion.name,
+      usernameSession: dataSesstion.user.name,
       usernameToFollow: props.username,
     };
 
@@ -36,7 +37,7 @@ const UserProfileSearch = props => {
 
   if (followers) {
     const isFollowing = followers.some(
-      user => user.username === dataSesstion.name
+      user => user.username === dataSesstion.user.name
     );
 
     if (isFollowing) followBtnContent = "Unfollow";

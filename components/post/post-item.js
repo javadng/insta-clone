@@ -13,7 +13,7 @@ const PostItem = props => {
   const { httpState, sendRequest } = useHttp();
 
   const deleltePostHandler = async () => {
-    if (dataSesstion.name === props.userName) {
+    if (dataSesstion.user.name === props.userName) {
       const httpOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,7 +52,7 @@ const PostItem = props => {
         </figure>
         <span className="font-bold ml-2 cursor-pointer">{props.userName}</span>
         <span className="ml-auto cursor-pointer">
-          {dataSesstion.name === props.userName && (
+          {dataSesstion.user.name === props.userName && (
             <PostDropDown
               loadingState={httpState.status}
               onDeleltePost={deleltePostHandler}
@@ -73,7 +73,7 @@ const PostItem = props => {
         />
       </figure>
       <Like
-        usernameSession={dataSesstion.name}
+        usernameSession={dataSesstion.user.name}
         usernamePost={props.userName}
         postId={props.id}
         likes={props.likes}
@@ -82,7 +82,7 @@ const PostItem = props => {
       <div className="comments">
         <Comments
           postId={props.id}
-          usernameSession={dataSesstion.name}
+          usernameSession={dataSesstion.user.name}
           usernamePost={props.userName}
           commentList={commentsList}
         />
