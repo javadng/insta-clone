@@ -1,6 +1,6 @@
 import StoryItem from "./story-item";
 import { CarouselProvider, Slide, Slider } from "pure-react-carousel";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "pure-react-carousel/dist/react-carousel.es.css";
 
 const DUMMY_STORY = [
@@ -15,14 +15,25 @@ const DUMMY_STORY = [
 ];
 
 const StoryList = props => {
-  // const win = window,
-  //   doc = document,
-  //   docElem = doc.documentElement,
-  //   body = doc.getElementsByTagName("body")[0],
-  //   x = win.innerWidth || docElem.clientWidth || body.clientWidth,
-  //   y = win.innerHeight || docElem.clientHeight || body.clientHeight;
+  const [browerWidth, setBrowerWidth] = useState();
+  const [isBrowser, setIsBrowser] = useState(false);
 
-  // console.log(x, y);
+  let visibleSlides = 5;
+
+  useEffect(() => {
+    setIsBrowser(true);
+  }, [setIsBrowser]);
+
+  if (isBrowser) {
+    const win = window,
+      doc = document,
+      docElem = doc.documentElement,
+      body = doc.getElementsByTagName("body")[0],
+      x = win.innerWidth || docElem.clientWidth || body.clientWidth;
+    // y = win.innerHeight || docElem.clientHeight || body.clientHeight;
+
+    visibleSlides = x / 80;
+  }
 
   const stories = DUMMY_STORY.map((story, index) => (
     <Slide index={index} key={story.id}>
@@ -35,7 +46,7 @@ const StoryList = props => {
       naturalSlideWidth={100}
       naturalSlideHeight={150}
       totalSlides={DUMMY_STORY.length + 1}
-      visibleSlides={6}
+      visibleSlides={visibleSlides}
       className="bg-white h-24 md:h-28 py-2 shadow-around rounded-md overflow-hidden"
     >
       <Slider dir="ltr" className="text-[10px] md:text-[13px]">
