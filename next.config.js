@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   env: {
     NEXTAUTH_SECRET: "Cx7zXs8776dpI22L8PszoRZUYnCg7vDj7pN/rFzTAyA=",
-    // NEXTAUTH_URL: "http://localhost:3000",
+    NEXTAUTH_URL: "https://instaclone-javad.iran.liara.run",
   },
 };
 
