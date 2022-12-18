@@ -12,6 +12,8 @@ const SearchPage = props => {
     await sendRequest(`/api/user-search/${searchValue}`);
   };
 
+  console.log(httpState);
+
   let content = "";
 
   if (httpState.status === "SUCCESS") {

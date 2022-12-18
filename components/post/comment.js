@@ -64,7 +64,7 @@ const Comments = props => {
 
   return (
     <ul className="comment-list p-4 text-sm md:text-lg">
-      <form onSubmit={commentsHandler} className="relative w-2/3 p-2 mb-8">
+      <form onSubmit={commentsHandler} className="relative md:w-2/3 p-2 mb-8">
         <input
           id={props.postId}
           className="input left-0 absolute bg-gray-50 px-2 py-1  w-full outline-none cursor-pointer"
@@ -82,7 +82,7 @@ const Comments = props => {
         </button>
       </form>
       {httpState.status === "LOADING" && (
-        <AiOutlineLoading className="animate-spin text-lg text-blue-400" />
+        <AiOutlineLoading className="animate-spin text-lg mx-auto text-blue-400" />
       )}
 
       {httpState.status !== "LOADING" && allCommetns}
