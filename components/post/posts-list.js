@@ -9,27 +9,29 @@ const PostsList = props => {
     );
   }
 
-  const { posts, profile } = props;
-
-  const base64Profile = profile
-    ? `data:image/png;base64, ${profile}`
-    : "/images/story-Image/empty-profile.png";
+  const { posts } = props;
 
   const sortedPosts = posts.sort((a, b) => (a.date > b.date ? -1 : 1));
-  const postsItems = sortedPosts.map(item => (
-    <PostItem
-      likes={item.likes}
-      comments={item.comments}
-      isChanged={props.isChanged}
-      id={item.id}
-      key={item.id}
-      dataSesstion={props.dataSesstion}
-      postImage={item.image}
-      profileImage={base64Profile}
-      userName={item.username}
-      description={item.description}
-    />
-  ));
+  const postsItems = sortedPosts.map(item => {
+    const base64Profile = item.profile
+      ? `data:image/png;base64, ${item.profile}`
+      : "/images/story-Image/empty-profile.png";
+
+    return (
+      <PostItem
+        likes={item.likes}
+        comments={item.comments}
+        isChanged={props.isChanged}
+        id={item.id}
+        key={item.id}
+        dataSesstion={props.dataSesstion}
+        postImage={item.image}
+        profileImage={base64Profile}
+        userName={item.username}
+        description={item.description}
+      />
+    );
+  });
 
   return (
     <ul className="posts mb-14 grid grid-cols-1 lg:grid-cols-posts gap-3">

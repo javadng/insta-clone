@@ -17,12 +17,13 @@ const HomePage = props => {
   const { user } = props.sessionData;
 
   useEffect(() => {
-    sendRequest(`/api/user-posts/${user.name}`);
+    sendRequest(`/api/home-posts/${user.name}`);
   }, [sendRequest, user]);
 
   useEffect(() => {
     if (isChanged) {
-      sendRequest(`/api/user-posts/${user.name}`);
+      sendRequest(`/api/home-posts/${user.name}`);
+
       setIsChanged(false);
     }
   }, [isChanged]);
@@ -43,8 +44,7 @@ const HomePage = props => {
               <PostsList
                 isChanged={setIsChanged}
                 dataSesstion={props.sessionData}
-                posts={httpState.data.userPosts}
-                profile={httpState.data.profile}
+                posts={httpState.data}
               />
             )}
           </div>

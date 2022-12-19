@@ -33,6 +33,7 @@ async function handler(req, res) {
 
     user.posts.push({
       id: uniqueId(),
+      profile: user.userProfile,
       description,
       username,
       image,

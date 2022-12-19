@@ -5,7 +5,7 @@ async function handler(req, res) {
     res.status(500).json({ message: "Bad request." });
     return;
   }
-  
+
   const username = req.query.username;
 
   if (!username) {
@@ -16,13 +16,28 @@ async function handler(req, res) {
   let clientGlobal;
 
   try {
-    let { user, client } = await findUser(username, "users-account");
-    const userPosts = user.posts;
-
+    let { user, client, collection } = await findUser(
+      username,
+      "users-account"
+    );
     clientGlobal = client;
 
+    let AllPostToShow = [...user.posts];
+
+    const userFollowings = user.followings.map(item => item.username);
+
+    const findedCursor = await collection.find({
+      username: { $in: userFollowings },
+    });
+
+    await findedCursor.forEach(user => {
+      if (user.posts.length) {
+        AllPostToShow.push(...user.posts);
+      }
+    });
+
     res.status(200).json({
-      data: { userPosts, profile: user.userProfile },
+      data: AllPostToShow,
       message: "Success",
     });
   } catch (error) {
