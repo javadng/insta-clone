@@ -33,6 +33,7 @@ const UserProfilePage = props => {
     }
   }, [isChanged]);
 
+  console.log(httpState);
   if (httpState.status === "LOADING" || !httpState.status) {
     return <LoadingSpinner />;
   }
@@ -96,7 +97,6 @@ const UserProfilePage = props => {
         <PostsList
           posts={posts}
           isChanged={setIsChange}
-          profile={userProfile}
           dataSesstion={sessionData}
         />
       </div>
