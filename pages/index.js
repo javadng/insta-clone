@@ -31,7 +31,7 @@ const HomePage = props => {
   const userLogoutHandler = () => {
     signOut();
   };
-
+  // console.log(httpState);
   return (
     <Fragment>
       <Header userSession={user} profile={httpState.data?.profile} />
@@ -44,7 +44,7 @@ const HomePage = props => {
               <PostsList
                 isChanged={setIsChanged}
                 dataSesstion={props.sessionData}
-                posts={httpState.data}
+                postsData={httpState.data}
               />
             )}
           </div>

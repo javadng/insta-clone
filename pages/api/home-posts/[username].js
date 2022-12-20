@@ -22,7 +22,9 @@ async function handler(req, res) {
     );
     clientGlobal = client;
 
-    let AllPostToShow = [...user.posts];
+    let AllPostToShow = [
+      { posts: user.posts, profile: user.userProfile, username: user.username },
+    ];
 
     const userFollowings = user.followings.map(item => item.username);
 
@@ -32,7 +34,11 @@ async function handler(req, res) {
 
     await findedCursor.forEach(user => {
       if (user.posts.length) {
-        AllPostToShow.push(...user.posts);
+        AllPostToShow.push({
+          posts: user.posts,
+          profile: user.userProfile,
+          username: user.username,
+        });
       }
     });
 

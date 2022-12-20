@@ -1,7 +1,7 @@
 import PostItem from "./post-item";
 
 const PostsList = props => {
-  if (!props.posts || !props.posts?.length) {
+  if (!props.postsData.posts || !props.postsData.posts?.length) {
     return (
       <h3 className="text-gray-600 text-center my-32 capitalize">
         There is no Post.
@@ -9,12 +9,29 @@ const PostsList = props => {
     );
   }
 
-  const { posts } = props;
+  const { postsData, dataSesstion } = props;
+  let allPosts = [];
 
-  const sortedPosts = posts.sort((a, b) => (a.date > b.date ? -1 : 1));
+  const userSession = postsData.find(
+    item => item.username === dataSesstion.user.name
+  );
+
+  allPosts.push(...userSession.posts);
+
+  const followings = postsData.filter(
+    item => item.username !== dataSesstion.user.name
+  );
+
+  followings.forEach(item => allPosts.push(...item.posts));
+
+  const sortedPosts = allPosts.sort((a, b) => (a.date > b.date ? -1 : 1));
   const postsItems = sortedPosts.map(item => {
-    const base64Profile = item.profile
-      ? `data:image/png;base64, ${item.profile}`
+    const userProfileImage = postsData.map(
+      data => data.username === item.username && data.profile
+    );
+
+    const base64Profile = userProfileImage[0]
+      ? `data:image/png;base64, ${userProfileImage[0]}`
       : "/images/story-Image/empty-profile.png";
 
     return (

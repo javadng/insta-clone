@@ -95,7 +95,7 @@ const UserProfilePage = props => {
         </div>
 
         <PostsList
-          posts={posts}
+          postsData={posts}
           isChanged={setIsChange}
           dataSesstion={sessionData}
         />
