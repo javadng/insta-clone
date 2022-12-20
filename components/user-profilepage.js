@@ -14,7 +14,6 @@ const UserProfileSearch = props => {
     ? `data:image/png;base64, ${profile}`
     : "/images/story-Image/empty-profile.png";
 
-
   const sendFollowRequest = async () => {
     const dataToSend = {
       usernameSession: dataSesstion.user.name,
@@ -82,7 +81,11 @@ const UserProfileSearch = props => {
         </button>
       </div>
 
-      <PostsList dataSesstion={dataSesstion} posts={posts} profile={profile} />
+      <PostsList
+        userSessionPosts={posts}
+        dataSesstion={dataSesstion}
+        profile={profile}
+      />
     </div>
   );
 };

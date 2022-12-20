@@ -32,6 +32,15 @@ const PostItem = props => {
   );
   let commentsList = sortedComments.slice(0, 5);
 
+  const commentDate = new Date(props.date);
+  const options = {
+    year: "numeric",
+    month: "long",
+  };
+  const formatedDate = new Intl.DateTimeFormat("en-US", options).format(
+    commentDate
+  );
+
   return (
     <li className="post-item border-b-2 py-1 bg-white overflow-hidden">
       {httpState.status === "LOADING" && (
@@ -86,6 +95,7 @@ const PostItem = props => {
           usernamePost={props.userName}
           commentList={commentsList}
         />
+        <span className="text-xs md:text-sm truncate">{formatedDate}</span>
       </div>
     </li>
   );
