@@ -8,7 +8,7 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import LoadingSpinner from "../components/ui/loading-spinner";
 import useHttp from "../hooks/http-hook";
-import MobileNavigation from "../components/mobile-nav";
+import Navigation from "../components/nav";
 
 const HomePage = props => {
   const { httpState, sendRequest } = useHttp();
@@ -31,11 +31,11 @@ const HomePage = props => {
   const userLogoutHandler = () => {
     signOut();
   };
-  // console.log(httpState);
+
   return (
-    <Fragment>
+    <div className="col-start-2">
       <Header userSession={user} profile={httpState.data?.profile} />
-      <section className="grid md:grid-cols-[minmax(28rem,42rem),minmax(15rem,_1fr)] max-w-4xl m-auto  mt-2">
+      <section className="grid md:grid-cols-[30rem_1fr] max-w-4xl m-auto  mt-2">
         <div className="posts p-1">
           <StoryList />
           <div className="relative">
@@ -50,7 +50,9 @@ const HomePage = props => {
           </div>
         </div>
         <div className="account-detail bg-gray-50 p-5 relative hidden md:block">
-          <span className="block mt-6">UserName : {user.name}</span>
+          <span className="block mt-6 text-xs lg:text-lg">
+            UserName : {user.name}
+          </span>
           {user && (
             <FiLogOut
               className="text-3xl absolute right-0 top-4 cursor-pointer"
@@ -59,11 +61,13 @@ const HomePage = props => {
           )}
         </div>
       </section>
-      <MobileNavigation
+
+      <Navigation
         isChanged={setIsChanged}
+        userName={user.name}
         userProfile={httpState.data?.profile}
       />
-    </Fragment>
+    </div>
   );
 };
 

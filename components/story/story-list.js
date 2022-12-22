@@ -17,7 +17,7 @@ const DUMMY_STORY = [
 const StoryList = props => {
   const [isBrowser, setIsBrowser] = useState(false);
 
-  let visibleSlides = 7;
+  let visibleSlides = 5;
 
   useEffect(() => {
     setIsBrowser(true);
