@@ -11,6 +11,7 @@ module.exports = {
         around: "0 0 0.6rem  rgba(0, 0, 0, 0.1)",
       },
       gridTemplateColumns: {
+        navigation: "minmax(10rem, 20rem) 1fr",
         posts: "repeat(auto-fit, minmax(20rem, 1fr))",
       },
     },

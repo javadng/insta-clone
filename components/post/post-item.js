@@ -4,6 +4,7 @@ import LoadingSpinner from "../../components/ui/loading-spinner";
 import Comments from "./comment";
 import Like from "./like";
 import Image from "next/image";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const PostItem = props => {
   const { dataSesstion } = props;
@@ -42,10 +43,10 @@ const PostItem = props => {
   );
 
   return (
-    <li className="post-item border-b-2 py-1 bg-white overflow-hidden">
+    <li className="post-item border-b-2 py-2 bg-white overflow-hidden relative">
       {httpState.status === "LOADING" && (
-        <div className="absolute left-0 top-0 w-full h-full bg-black opacity-25">
-          <LoadingSpinner className="top-1/2 z-50" />
+        <div className="absolute left-0 right-0 top-1/2 z-40 w-full h-full">
+          <AiOutlineLoading className="animate-spin relative z-50 text-3xl mx-auto text-blue-800" />
         </div>
       )}
       <div className="user-profile p-1  flex items-center ">
@@ -87,7 +88,9 @@ const PostItem = props => {
         postId={props.id}
         likes={props.likes}
       />
-      <div className="description p-4">{props.description}</div>
+      {props.description && (
+        <div className="description p-2">{props.description}</div>
+      )}
       <div className="comments">
         <Comments
           postId={props.id}

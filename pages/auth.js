@@ -11,7 +11,7 @@ const LogingPage = () => {
   };
 
   return (
-    <div className="w-full sm:w-2/3 md:w-[40%] m-auto text-center my-10">
+    <div className="col-start-1 col-span-2 w-full sm:w-2/3 md:w-[40%] m-auto text-center my-10">
       <div className="py-3 px-[5vw] bg-white shadow-around">
         <figure className="w-full h-20 my-10 relative">
           <Image

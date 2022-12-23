@@ -8,7 +8,7 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import LoadingSpinner from "../components/ui/loading-spinner";
 import useHttp from "../hooks/http-hook";
-import MobileNavigation from "../components/mobile-nav";
+import Navigation from "../components/nav";
 
 const HomePage = props => {
   const { httpState, sendRequest } = useHttp();
@@ -31,11 +31,14 @@ const HomePage = props => {
   const userLogoutHandler = () => {
     signOut();
   };
-  // console.log(httpState);
+  const userProfileImg = user.image
+    ? `data:image/png;base64, ${user.image}`
+    : "/images/story-Image/empty-profile.png";
+
   return (
-    <Fragment>
-      <Header userSession={user} profile={httpState.data?.profile} />
-      <section className="grid md:grid-cols-[minmax(28rem,42rem),minmax(15rem,_1fr)] max-w-4xl m-auto  mt-2">
+    <div className="col-start-2">
+      {/* <Header userSession={user} profile={userProfileImg} /> */}
+      <section className="grid md:grid-cols-[30rem_1fr] max-w-4xl m-auto  mt-2">
         <div className="posts p-1">
           <StoryList />
           <div className="relative">
@@ -49,21 +52,29 @@ const HomePage = props => {
             )}
           </div>
         </div>
-        <div className="account-detail bg-gray-50 p-5 relative hidden md:block">
-          <span className="block mt-6">UserName : {user.name}</span>
+        <ul className="account-detail bg-gray-50 py-2 mt-6 relative hidden md:block">
           {user && (
-            <FiLogOut
-              className="text-3xl absolute right-0 top-4 cursor-pointer"
-              onClick={userLogoutHandler}
-            />
+            <li className="flex items-center bg-white p-2 rounded-md">
+              <figure className="w-14 h-14 mr-3 overflow-hidden rounded-full">
+                <img src={userProfileImg} alt="" />
+              </figure>
+              <span className="block text-xs mr-auto font-bold capitalize lg:text-lg">
+                {user.name}
+              </span>
+              <FiLogOut
+                className="text-3xl cursor-pointer"
+                onClick={userLogoutHandler}
+              />
+            </li>
           )}
-        </div>
+        </ul>
       </section>
-      <MobileNavigation
+      <Navigation
         isChanged={setIsChanged}
-        userProfile={httpState.data?.profile}
+        userName={user.name}
+        userProfile={userProfileImg}
       />
-    </Fragment>
+    </div>
   );
 };
 

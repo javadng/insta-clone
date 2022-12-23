@@ -1,6 +1,6 @@
 import { unstable_getServerSession } from "next-auth";
 import { useEffect } from "react";
-import MobileNavigation from "../../components/mobile-nav";
+import Navigation from "../../components/nav";
 import LoadingSpinner from "../../components/ui/loading-spinner";
 import UserProfileSearch from "../../components/user-profilepage";
 import useHttp from "../../hooks/http-hook";
@@ -9,6 +9,10 @@ import { authOptions } from "../api/auth/[...nextauth]";
 const UserProfileFindPage = props => {
   const { sendRequest, httpState } = useHttp();
   let userProfileContent = "";
+
+  const { user } = props.sessionData;
+
+  const userProfileImage = `data:image/png;base64, ${user.image}`;
 
   useEffect(() => {
     sendRequest(`/api/user/user-account/${props.username}`);
@@ -29,10 +33,10 @@ const UserProfileFindPage = props => {
   }
 
   return (
-    <div>
+    <div className="col-start-2">
       {httpState.status === "LOADING" && <LoadingSpinner />}
       {userProfileContent}
-      <MobileNavigation userProfile={httpState.data?.userProfile} />
+      <Navigation userName={user.name} userProfile={userProfileImage} />
     </div>
   );
 };
