@@ -11,7 +11,7 @@ const StoryItem = props => {
             layout="responsive"
             width={100}
             height={100}
-            src={`/${image}`}
+            src={image}
             alt={name}
             className="rounded-full"
           />
