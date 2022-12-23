@@ -69,7 +69,7 @@ export const authOptions = {
       return {
         user: {
           name: userAccount.username,
-          image: userAccount.userProfile,
+          image: userAccount.userProfile || null,
           email: null,
         },
         expires: session.expires,
