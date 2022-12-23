@@ -18,9 +18,9 @@ const SearchPage = props => {
   let content = "";
 
   if (httpState.status === "SUCCESS") {
-    content = httpState.data.map(user => (
+    content = httpState.data.map(userAcc => (
       <li
-        key={user._id}
+        key={userAcc._id}
         className="p-2 font-bold bg-white rounded-lg shadow-sm my-2 capitalize cursor-pointer flex items-center"
       >
         <figure className="w-12 h-12 mr-3 overflow-hidden rounded-full cursor-pointer bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px]">
@@ -30,14 +30,16 @@ const SearchPage = props => {
             height={100}
             alt="user-profile"
             src={
-              user.profile
-                ? `data:image/png;base64, ${user.profile}`
+              userAcc.profile
+                ? `data:image/png;base64, ${userAcc.profile}`
                 : "/images/story-Image/empty-profile.png"
             }
             className="rounded-full"
           />
         </figure>
-        <Link href={`/userprofile/${user.username}`}>{user.username}</Link>
+        <Link href={`/userprofile/${userAcc.username}`}>
+          {userAcc.username}
+        </Link>
       </li>
     ));
   }
