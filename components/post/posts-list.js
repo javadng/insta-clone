@@ -63,7 +63,7 @@ const PostsList = props => {
   });
 
   return (
-    <ul className="posts mb-14 grid grid-cols-1 lg:grid-cols-posts gap-3">
+    <ul className="posts mb-16 grid grid-cols-1 lg:grid-cols-posts gap-3">
       {postsItems}
     </ul>
   );

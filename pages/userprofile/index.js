@@ -112,7 +112,7 @@ const UserProfilePage = props => {
       <Navigation
         isChanged={setIsChange}
         userName={username}
-        userProfile={userProfile}
+        userProfile={userProfileImg}
       />
       {/* <MobileNavigation isChanged={setIsChange} userProfile={userProfile} /> */}
     </Fragment>

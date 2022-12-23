@@ -6,10 +6,6 @@ import Modal from "./ui/modal";
 const UserProfile = props => {
   const [modalState, setModalState] = useState(false);
 
-  const userProfileImg = props.userImage
-    ? `data:image/png;base64, ${props.userImage}`
-    : "/images/story-Image/empty-profile.png";
-
   return (
     <Fragment>
       {modalState && (
@@ -20,7 +16,7 @@ const UserProfile = props => {
       <div className="flex justify-evenly items-start md:w-1/2 mx-auto">
         <figure className="w-14 h-14 row-start-1 col-start-1 rounded-full relative ">
           <img
-            src={userProfileImg}
+            src={props.userImage}
             alt="userprofile"
             className="rounded-full"
           />

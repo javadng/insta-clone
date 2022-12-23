@@ -53,25 +53,29 @@ export const authOptions = {
       },
     }),
   ],
-  // callbacks: {
-  //   session: async ({ session, token }) => {
-  //     if (!session) return;
+  callbacks: {
+    session: async ({ session, token }) => {
+      if (!session) return;
 
-  //     const client = await connectToDatabase();
+      const client = await connectToDatabase();
 
-  //     const userAccount = await client
-  //       .db()
-  //       .collection("users-account")
-  //       .findOne({
-  //         username: token.name,
-  //       });
+      const userAccount = await client
+        .db()
+        .collection("users-account")
+        .findOne({
+          username: token.name,
+        });
 
-  //     return {
-  //       user: { ...userAccount },
-  //       expires: session.expires,
-  //     };
-  //   },
-  // },
+      return {
+        user: {
+          name: userAccount.username,
+          image: userAccount.userProfile,
+          email: null,
+        },
+        expires: session.expires,
+      };
+    },
+  },
 };
 
 export default NextAuth(authOptions);

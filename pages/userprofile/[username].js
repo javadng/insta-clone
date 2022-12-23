@@ -12,6 +12,8 @@ const UserProfileFindPage = props => {
 
   const { user } = props.sessionData;
 
+  const userProfileImage = `data:image/png;base64, ${user.image}`;
+
   useEffect(() => {
     sendRequest(`/api/user/user-account/${props.username}`);
   }, [sendRequest, props.username]);
@@ -34,7 +36,7 @@ const UserProfileFindPage = props => {
     <div className="col-start-2">
       {httpState.status === "LOADING" && <LoadingSpinner />}
       {userProfileContent}
-      <Navigation userName={user.name} />
+      <Navigation userName={user.name} userProfile={userProfileImage} />
     </div>
   );
 };
