@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { AiOutlineHeart } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { HiHome, HiSearch } from "react-icons/hi";
 import { Fragment, useState } from "react";
@@ -14,7 +13,8 @@ const Navigation = props => {
     ? props.userProfile
     : "/images/story-Image/empty-profile.png";
 
-  const liClasses = "cursor-pointer flex items-center text-xl my-9 w-full";
+  const liClasses =
+    "cursor-pointer flex items-center text-xl my-3 md:my-9 w-full";
   const spanClasses = "ml-9 hidden md:inline-block";
   return (
     <Fragment>
@@ -27,27 +27,27 @@ const Navigation = props => {
           />
         </Modal>
       )}
-      <div className="fixed left-0 bottom-0 bg-white w-[100vw] md:w-auto md:h-[100vh] col-start-1  col-span-4 px-4">
+      <div className="fixed left-0 bottom-0 bg-white w-[100vw] md:max-w-[20vw] md:h-[100vh] col-start-1  col-span-4 px-4">
         <ul className="flex md:block text-5xl">
           <Link href="/">
             <li className={liClasses}>
-              <HiHome className="absolute text-3xl" />
+              <HiHome className="absolute md:text-3xl" />
               <span className={spanClasses}>Home</span>
             </li>
           </Link>
           <Link href="/search">
             <li className={liClasses}>
-              <HiSearch className="absolute text-3xl" />
+              <HiSearch className="absolute md:text-3xl" />
               <span className={spanClasses}>Search</span>
             </li>
           </Link>
           <li className={liClasses} onClick={() => setModalState(true)}>
-            <BsFillPlusCircleFill className="absolute text-3xl" />
+            <BsFillPlusCircleFill className="absolute md:text-3xl" />
             <span className={spanClasses}>Create</span>
           </li>
           <Link href="/">
             <li className={liClasses}>
-              <AiOutlineHeart className="absolute text-3xl" />
+              <AiOutlineHeart className="absolute md:text-3xl" />
               <span className={spanClasses}>Notifications</span>
             </li>
           </Link>
