@@ -6,6 +6,7 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import Image from "next/image";
 import Navigation from "../../components/nav";
+import { Fragment } from "react";
 
 const SearchPage = props => {
   const { httpState, sendRequest } = useHttp();
@@ -49,25 +50,27 @@ const SearchPage = props => {
   }
 
   return (
-    <div className="p-4 col-start-2">
-      <Search getSearchValue={searchHandler} />
-      <h2 className="my-3 text-center font-bold">Search result :</h2>
-      <ul className="relative">
-        {content}
-        {httpState.status === "ERROR" && (
-          <p className="text-red-500 my-6 text-2xl text-center">
-            {httpState.message}
-          </p>
-        )}
-      </ul>
-      <Navigation userName={user.name} />
-      {/* 
+    <Fragment>
+      <div className="p-4 col-start-2 max-w-xl">
+        <Search getSearchValue={searchHandler} />
+        <h2 className="my-3 text-center font-bold">Search result :</h2>
+        <ul className="relative">
+          {content}
+          {httpState.status === "ERROR" && (
+            <p className="text-red-500 my-6 text-2xl text-center">
+              {httpState.message}
+            </p>
+          )}
+        </ul>
+        {/* 
       <Link href="/">
-        <span className="text-white bg-blue-500  focus:ring-4 focus:ring-blue-300 font-medium absolute bottom-1 left-1  text-sm px-5 py-2 text-center mr-2  justify-center flex items-center cursor-pointer">
-          Return Home
+      <span className="text-white bg-blue-500  focus:ring-4 focus:ring-blue-300 font-medium absolute bottom-1 left-1  text-sm px-5 py-2 text-center mr-2  justify-center flex items-center cursor-pointer">
+      Return Home
         </span>
       </Link> */}
-    </div>
+      </div>
+      <Navigation userName={user.name} />
+    </Fragment>
   );
 };
 

@@ -1,6 +1,5 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
-import Header from "../components/header";
 import PostsList from "../components/post/posts-list";
 import StoryList from "../components/story/story-list";
 import { FiLogOut } from "react-icons/fi";
@@ -37,7 +36,6 @@ const HomePage = props => {
 
   return (
     <div className="col-start-2">
-      {/* <Header userSession={user} profile={userProfileImg} /> */}
       <section className="grid md:grid-cols-[30rem_1fr] max-w-4xl m-auto  mt-2">
         <div className="posts p-1">
           <StoryList />
