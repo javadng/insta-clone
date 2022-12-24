@@ -27,18 +27,19 @@ const PostsList = props => {
       </h3>
     );
   }
+
   const sortedPosts = allPosts.sort((a, b) => (a.date > b.date ? -1 : 1));
   const postsItems = sortedPosts.map(item => {
     let userProfileImg;
 
     if (userSessionPosts) {
-      userProfileImg = item.profile;
+      userProfileImg = dataSesstion.user.image;
     } else {
-      const userProfile = postsData.map(
-        data => data.username === item.username && data.profile
+      const userProfile = postsData.find(
+        data => data.username === item.username
       );
 
-      userProfileImg = userProfile[0];
+      userProfileImg = userProfile.profile;
     }
 
     const base64Profile = userProfileImg
