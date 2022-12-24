@@ -8,6 +8,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import LoadingSpinner from "../components/ui/loading-spinner";
 import useHttp from "../hooks/http-hook";
 import Navigation from "../components/nav";
+import Image from "next/image";
 
 const HomePage = props => {
   const { httpState, sendRequest } = useHttp();
@@ -30,6 +31,7 @@ const HomePage = props => {
   const userLogoutHandler = () => {
     signOut();
   };
+
   const userProfileImg = user.image
     ? `data:image/png;base64, ${user.image}`
     : "/images/story-Image/empty-profile.png";
@@ -50,11 +52,11 @@ const HomePage = props => {
             )}
           </div>
         </div>
-        <ul className="account-detail bg-gray-50 py-2 mt-6 relative hidden md:block">
+        <ul className="account-detail bg-gray-50 py-2 mt-6 relative hidden lg:block">
           {user && (
             <li className="flex items-center bg-white p-2 rounded-md">
               <figure className="w-14 h-14 mr-3 overflow-hidden rounded-full">
-                <img src={userProfileImg} alt="" />
+                <Image width={100} height={100} src={userProfileImg} alt="" />
               </figure>
               <span className="block text-xs mr-auto font-bold capitalize lg:text-lg">
                 {user.name}

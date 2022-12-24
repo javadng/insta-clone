@@ -42,7 +42,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
         />
       </Head>
       <main className="container mx-auto">
-        <div className="md:grid grid-cols-navigation">
+        <div className="md:grid grid-cols-[10rem_1fr] lg:grid-cols-navigation">
           {loading ? <LoadingSpinner /> : <Component {...pageProps} />}
         </div>
       </main>
