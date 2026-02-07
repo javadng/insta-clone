@@ -2,6 +2,7 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Navigation from "../components/nav";
 import LoadingSpinner from "../components/ui/loading-spinner";
 import "../styles/globalStyle.css";
 import "../styles/imageclasses.css";
@@ -44,6 +45,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
       <main className="container mx-auto">
         <div className="md:grid grid-cols-[10rem_1fr] lg:grid-cols-navigation">
           {loading ? <LoadingSpinner /> : <Component {...pageProps} />}
+          <Navigation />
         </div>
       </main>
     </SessionProvider>

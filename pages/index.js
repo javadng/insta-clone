@@ -69,11 +69,6 @@ const HomePage = props => {
           )}
         </ul>
       </section>
-      <Navigation
-        isChanged={setIsChanged}
-        userName={user.name}
-        userProfile={userProfileImg}
-      />
     </div>
   );
 };

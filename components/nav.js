@@ -5,12 +5,22 @@ import { HiHome, HiSearch } from "react-icons/hi";
 import { Fragment, useState } from "react";
 import Modal from "./ui/modal";
 import AddNewPost from "./addnewpost";
+import { useSession } from "next-auth/react";
 
 const Navigation = props => {
   const [modalState, setModalState] = useState(false);
 
-  const userProfileImg = props.userProfile
-    ? props.userProfile
+  const { data } = useSession();
+  let userProfile,
+    userName = "loading";
+
+  if (data) {
+    userName = data.user.name;
+    userProfile = data.user.image;
+  }
+
+  const userProfileImg = userProfile
+    ? `data:image/png;base64, ${userProfile}`
     : "/images/story-Image/empty-profile.png";
 
   const liClasses =
@@ -22,8 +32,8 @@ const Navigation = props => {
         <Modal modalState={modalState} setModalState={setModalState}>
           <AddNewPost
             setModalState={setModalState}
-            username={props.userName}
-            isChanged={props.isChanged}
+            username={userName}
+            // isChanged={props.isChanged}
           />
         </Modal>
       )}

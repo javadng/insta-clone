@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import useHttp from "../hooks/http-hook";
 
@@ -5,7 +6,7 @@ const AddNewPost = props => {
   const { httpState, sendRequest } = useHttp();
   const [userImage, setUserImage] = useState("");
   const [userDescription, setUserDescription] = useState("");
-
+  const router = useRouter();
   const [errorText, setErrorText] = useState("");
 
   const getUserImage = e => {
@@ -63,7 +64,8 @@ const AddNewPost = props => {
       });
 
       props.setModalState(false);
-      props.isChanged(true);
+      router.push("/");
+      // props.isChanged(true);
     } catch (error) {
       setErrorText(error.message || httpState.message);
     }

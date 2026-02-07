@@ -1,11 +1,10 @@
 import { unstable_getServerSession } from "next-auth";
 import { signOut } from "next-auth/react";
 import { Fragment, useEffect, useState } from "react";
-import { AiFillPlusCircle } from "react-icons/ai";
+import { AiFillPlusCircle, AiOutlineLoading } from "react-icons/ai";
 import { MdOutlineSettings } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import AddUserProfile from "../../components/add-userprofile";
-import MobileNavigation from "../../components/mobile-nav";
 import Navigation from "../../components/nav";
 import PostsList from "../../components/post/posts-list";
 import LoadingSpinner from "../../components/ui/loading-spinner";
@@ -37,7 +36,7 @@ const UserProfilePage = props => {
   }, [isChanged]);
 
   if (httpState.status === "LOADING" || !httpState.status) {
-    return <LoadingSpinner />;
+    return <AiOutlineLoading />;
   }
 
   const { followers, followings, name, posts, userProfile, username } =
@@ -84,7 +83,7 @@ const UserProfilePage = props => {
           </figure>
           <div className="col-start-2 sm:w-4/5 sm:text-sm text-xs my-6">
             <div className="flex items-center my-4 justify-evenly">
-              <span>UserName</span>
+              <span>{username}</span>
               <button className="bg-gray-200  hover:bg-gray-300 font-medium rounded-lg  px-2 py-1.5  text-center dark:bg-gray-300 dark:hover:bg-gray-300">
                 Edit <span className="hidden sm:inline-block">Account</span>
               </button>
@@ -113,12 +112,6 @@ const UserProfilePage = props => {
           dataSesstion={sessionData}
         />
       </div>
-      <Navigation
-        isChanged={setIsChange}
-        userName={username}
-        userProfile={userProfileImg}
-      />
-      {/* <MobileNavigation isChanged={setIsChange} userProfile={userProfile} /> */}
     </Fragment>
   );
 };

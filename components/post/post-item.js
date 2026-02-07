@@ -1,6 +1,5 @@
 import PostDropDown from "./post-dropdown";
 import useHttp from "../../hooks/http-hook";
-import LoadingSpinner from "../../components/ui/loading-spinner";
 import Comments from "./comment";
 import Like from "./like";
 import Image from "next/image";

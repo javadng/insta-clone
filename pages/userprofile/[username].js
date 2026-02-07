@@ -36,7 +36,6 @@ const UserProfileFindPage = props => {
     <div className="col-start-2">
       {httpState.status === "LOADING" && <LoadingSpinner />}
       {userProfileContent}
-      <Navigation userName={user.name} userProfile={userProfileImage} />
     </div>
   );
 };
